@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "strict": true,
+    "noImplicitAny": false
+  },
+  "typedocOptions": {
+    "entryPointStrategy": "Expand",
+    "entryPoints": ["./App.tsx", "./src"],
+    "out": "docs"
+  },
+  "extends": "expo/tsconfig.base"
+}

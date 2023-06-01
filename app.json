@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "Aromo Health",
+    "slug": "aromo-health",
+    "owner": "this.samin",
+    "version": "0.0.39",
+    "orientation": "portrait",
+    "icon": "./assets/logo/Final-Aromo-Logo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo/Aromo-Transparent-Logo-01.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ],
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aromohealth.aromohealth",
+      "buildNumber": "0.0.39"
+    },
+    "android": {
+      "versionCode": 39,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAtNzTg8uPe1QszQ3mSUraELZqvhdjfzGM"
+        }
+      },
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo/adaptive-foreground.png",
+        "backgroundImage": "./assets/logo/adaptive-background.png"
+      },
+      "package": "com.aromohealth.aromohealth"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5105b3c2-3063-4c22-83dd-1a3868fb112c"
+      }
+    }
+  }
+}
