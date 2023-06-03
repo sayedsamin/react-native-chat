@@ -5,6 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { HStack, IconButton, Image } from "native-base";
 import HomeScreen from "../screens/home/HomeScreen";
 import LogOutScreen from "../screens/home/LogOutScreen";
+import ChatScreen from "../screens/chat/chatScreen/ChatScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -64,6 +65,16 @@ const MainStackNavigator = ({ navigation, route }) => {
       <Stack.Screen name="LogOut" component={LogOutScreen} />
 
       {/* Chat Related Screens Start */}
+      <Stack.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={({ navigation, route }) => ({
+          title: "Chat",
+          headerStyle: {
+            // backgroundColor: "#1e2e27",
+          },
+        })}
+      />
     </Stack.Navigator>
   );
 };

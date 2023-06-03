@@ -5,12 +5,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { NativeBaseProvider } from "native-base";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import "react-native-gesture-handler";
-import { StreamChat } from "stream-chat";
 import { mainTheme, navigationTheme } from "./assets/styles/mainTheme";
 import { DrawerNavigator } from "./src/navigation/DrawerNavigator";
 import LoginScreen from "./src/screens/auth/login/LoginScreen";
+import { activeUrl } from "./src/store/constants";
+
+import { useSocket } from "./src/utils/useSocket";
 
 import AuthContextProvider, { AuthContext } from "./src/store/auth-context";
 
@@ -40,6 +42,11 @@ function AuthStack() {
 }
 
 function AuthenticatedStack() {
+  const { socket } = useSocket();
+
+  socket.on("connect", () => {
+    console.log("connected to socket");
+  });
   return (
     <NavigationContainer theme={navigationTheme}>
       <DrawerNavigator />

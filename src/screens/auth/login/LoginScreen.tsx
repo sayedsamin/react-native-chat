@@ -32,8 +32,8 @@ const LoginScreen = ({ navigation }) => {
   const queryClient = useQueryClient();
 
   // State Variables
-  const [number, setNumber] = useState("");
-  const [password, setPassword] = useState("");
+  const [number, setNumber] = useState("01521433259");
+  const [password, setPassword] = useState("12345678");
 
   const [error, setError] = useState({
     number: "",
@@ -89,7 +89,8 @@ const LoginScreen = ({ navigation }) => {
       // If request is successful, authenticate user.
       if (response.status === 200) {
         // @ts-ignore
-        authCtx.authenticate(response.data.token);
+        const { token, userId, phone } = response.data;
+        authCtx.authenticate(token, userId, phone);
         setIsAuthenticating(false);
       }
     } catch (error) {

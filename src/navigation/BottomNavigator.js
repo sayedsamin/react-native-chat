@@ -22,6 +22,7 @@ export function MyTabs() {
 
         tabBarStyle: {
           position: "absolute",
+
           // bottom: 25,
           // left: 20,
           // right: 20,
@@ -42,6 +43,12 @@ export function MyTabs() {
           ({
             headerShown: false,
             // hide tab bar
+            tabBarStyle: {
+              display:
+                getFocusedRouteNameFromRoute(route) === "Chat"
+                  ? "none"
+                  : "flex",
+            },
 
             // Function that given { focused: boolean, color: string, size: number }
             // returns a React.Node, to display in the tab bar.

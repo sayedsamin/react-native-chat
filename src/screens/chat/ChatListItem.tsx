@@ -18,10 +18,10 @@ export default function ChatListItem({ chat, navigation }) {
       h="70px"
       testID="outer-container"
       onPress={() =>
-        navigation.navigate(
-          "Chat"
-          // { id: chatRoom.id, name: user?.name }
-        )
+        navigation.navigate("Chat", {
+          receiverId: chat?.user?.id,
+          receiverName: chat?.user?.name,
+        })
       }
       android_ripple={{ color: "gray.400" }}
     >

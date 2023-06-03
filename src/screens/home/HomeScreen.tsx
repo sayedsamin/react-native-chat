@@ -17,11 +17,6 @@ export default function HomeScreen({ navigation }) {
   );
 
   return (
-    // <ScrollView bg={"white"}>
-    //   <VStack flex="1" alignItems="center" testID="outer-container">
-    //     <ChatListItem chat={chat} />
-    //   </VStack>
-    // </ScrollView>
     <VStack flex="1" pb={10}>
       <FlatList
         bg={"white"}
