@@ -14,12 +14,16 @@ export default function ChatListItem({ chat, navigation }) {
       flexDirection="row"
       alignItems={"center"}
       mx={3}
-      my={2}
+      py={2}
       h="70px"
       testID="outer-container"
-      //   onPress={() =>
-      // navigation.navigate("Chat", { id: chatRoom.id, name: user?.name })
-      //   }
+      onPress={() =>
+        navigation.navigate(
+          "Chat"
+          // { id: chatRoom.id, name: user?.name }
+        )
+      }
+      android_ripple={{ color: "gray.400" }}
     >
       {/* User Avatar */}
       <Image
