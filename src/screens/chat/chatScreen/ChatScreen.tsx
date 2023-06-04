@@ -1,18 +1,25 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 import { FlatList, HStack, Input, Text, VStack } from "native-base";
-import { useState, useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../store/auth-context";
-import { useSocket } from "../../../utils/useSocket";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-// import messages from "../../../../assets/data/messages.json";
+import { SocketContext } from "../../../store/socketContext";
+
+type Message = {
+  messageId: string;
+  content: string;
+  senderId: string;
+  receiverId: string;
+  createdAt: string;
+};
 
 export default function ChatScreen({ navigation, route }) {
-  const { socket } = useSocket();
+  const { socket } = useContext(SocketContext);
   const { receiverId, receiverName } = route.params;
   const { userId } = useContext(AuthContext);
 
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -38,10 +45,51 @@ export default function ChatScreen({ navigation, route }) {
     };
   }, []);
 
+  useEffect(() => {
+    try {
+      socket.on("blood-messages", async (message) => {
+        if (message.senderId === receiverId) {
+          setMessages((messages) => [message, ...messages]);
+        }
+
+        const savedMessages = await AsyncStorage.getItem(
+          `messages-${message.senderId}`
+        );
+        // console.log(
+        //   "🚀 ~ file: ChatScreen.tsx:54 ~ socket.on ~ savedMessages:",
+        //   savedMessages
+        // );
+
+        if (savedMessages) {
+          const parsedMessages = JSON.parse(savedMessages);
+          console.log(
+            "🚀 ~ file: ChatScreen.tsx:59 ~ socket.on ~ parsedMessages:",
+            parsedMessages
+          );
+          const newMessages = [message, ...parsedMessages];
+
+          await AsyncStorage.setItem(
+            `messages-${message.senderId}`,
+            JSON.stringify(newMessages)
+          );
+        } else {
+          await AsyncStorage.setItem(
+            `messages-${message.senderId}`,
+            JSON.stringify([message])
+          );
+        }
+      });
+    } catch (error) {}
+
+    return () => {
+      // socket.off("blood-messages");
+    };
+  }, []);
+
   return (
     <>
       <FlatList
-        bg={"white"}
+        bg="white"
         flex="1"
         p="3"
         data={messages}
@@ -55,7 +103,7 @@ export default function ChatScreen({ navigation, route }) {
 
   function Message({ message }) {
     const isMyMessage = () => {
-      return message.sender?.userId === userId;
+      return message.senderId === userId;
     };
     return (
       <VStack
@@ -82,7 +130,7 @@ export default function ChatScreen({ navigation, route }) {
     const [newMessage, setNewMessage] = useState("");
 
     const onSend = async () => {
-      const messagePayload = {
+      const messagePayload: Message = {
         messageId: Math.random().toString(36).substr(2, 9),
         content: newMessage,
         createdAt: new Date().toISOString(),
@@ -98,6 +146,7 @@ export default function ChatScreen({ navigation, route }) {
       );
 
       setNewMessage("");
+      // @ts-ignore
       socket.emit("blood-messages", messagePayload, receiverId);
     };
     return (

@@ -18,7 +18,7 @@ import { useContext, useState } from "react";
 import { turqGradient } from "../../../../assets/styles/gradientComp";
 import { AuthContext } from "../../../store/auth-context";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Platform } from "react-native";
 import { activeUrl } from "../../../store/constants";
 
@@ -91,6 +91,7 @@ const LoginScreen = ({ navigation }) => {
         // @ts-ignore
         const { token, userId, phone } = response.data;
         authCtx.authenticate(token, userId, phone);
+
         setIsAuthenticating(false);
       }
     } catch (error) {

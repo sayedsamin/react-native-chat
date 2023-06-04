@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { NativeBaseProvider } from "native-base";
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useContext, useEffect, useMemo, useReducer, useState } from "react";
 import "react-native-gesture-handler";
 import { mainTheme, navigationTheme } from "./assets/styles/mainTheme";
 import { DrawerNavigator } from "./src/navigation/DrawerNavigator";
@@ -15,6 +15,7 @@ import { activeUrl } from "./src/store/constants";
 import { useSocket } from "./src/utils/useSocket";
 
 import AuthContextProvider, { AuthContext } from "./src/store/auth-context";
+import SocketProvider, { SocketContext } from "./src/store/socketContext";
 
 const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
@@ -42,15 +43,15 @@ function AuthStack() {
 }
 
 function AuthenticatedStack() {
-  const { socket } = useSocket();
+  // const { socket } = useContext(SocketContext);
 
-  socket.on("connect", () => {
-    console.log("connected to socket");
-  });
+  useEffect(() => {}, []);
   return (
-    <NavigationContainer theme={navigationTheme}>
-      <DrawerNavigator />
-    </NavigationContainer>
+    <SocketProvider>
+      <NavigationContainer theme={navigationTheme}>
+        <DrawerNavigator />
+      </NavigationContainer>
+    </SocketProvider>
   );
 }
 

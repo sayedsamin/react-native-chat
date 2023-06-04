@@ -13,21 +13,25 @@ export const AuthContext = createContext({
 
 //Function component that wraps other parent components that wants to use its values
 function AuthContextProvider({ children }) {
-  const [authToken, setAuthToken] = useState();
   const [userId, setUserId] = useState();
   const [userPhone, setUserPhone] = useState();
+  const [authToken, setAuthToken] = useState();
 
   console.log("AuthContextProvider Initialized");
 
-  async function authenticate(token, userId, userPhone) {
-    console.log("Token, userCredentuals storing in progress");
+  async function authenticate(token, userId_, userPhone_) {
+    console.log(
+      "🚀 ~ file: auth-context.js:23 ~ authenticate ~ userId:",
+      userId_
+    );
     setAuthToken(token);
-    setUserId(userId);
-    setUserPhone(userPhone);
+    setUserId(() => userId_);
+    setUserPhone(userPhone_);
     await AsyncStorage.setItem("token", token);
-    await AsyncStorage.setItem("userId", userId);
-    await AsyncStorage.setItem("userPhone", userPhone);
+    await AsyncStorage.setItem("userId", userId_);
+    await AsyncStorage.setItem("userPhone", userPhone_);
     console.log("Token stored");
+
     return true;
   }
 
@@ -42,6 +46,8 @@ function AuthContextProvider({ children }) {
 
   const value = {
     token: authToken,
+    userId: userId,
+    userPhone: userPhone,
     isAuthenticated: !!authToken,
     authenticate: authenticate,
     logout: logout,
@@ -56,9 +62,9 @@ function AuthContextProvider({ children }) {
       const userPhone = await AsyncStorage.getItem("userPhone");
       if (token) {
         console.log("Token found");
-        setAuthToken(token);
         setUserId(userId);
         setUserPhone(userPhone);
+        setAuthToken(token);
       }
     }
 
