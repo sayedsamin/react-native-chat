@@ -6,36 +6,32 @@
       "name": "Test",
       "image": "https://aromo-health.sgp1.cdn.digitaloceanspaces.com/images/generalUsers/dp/undefined-1684366198309.jpg"
     },
-    "lastMessage": {
-      "id": "m1",
-      "text": "Well done this sprint, guys!",
-      "createdAt": "2022-10-14T13:30:00.000Z"
-    }
   },
+
   {
     "id": "2",
+    "user": {
+      "id": "sZicNsAadZUA98IHbJBPEzjfclC2",
+      "name": "Mobin",
+      "image": "https://aromo-health.sgp1.cdn.digitaloceanspaces.com/images/generalUsers/dp/sZicNsAadZUA98IHbJBPEzjfclC2-1681578347936.jpg"
+    },
+  },
+   {
+    "id": "3",
+    "user": {
+      "id": "gGiOjXe2wFZseySAbcGJvyvxTbI2",
+      "name": "Rokon",
+      "image": "https://aromo-health.sgp1.cdn.digitaloceanspaces.com/images/generalUsers/dp/gGiOjXe2wFZseySAbcGJvyvxTbI2-1680501773363.jpg"
+    },
+
+  },
+    {
+    "id": "4",
     "user": {
       "id": "FIWFgeKs2afjie8InExzOApS4oU2",
       "name": "Samin",
       "image": "https://aromo-health.sgp1.cdn.digitaloceanspaces.com/images/generalUsers/dp/FIWFgeKs2afjie8InExzOApS4oU2-1684241617269.jpg"
     },
-    "lastMessage": {
-      "id": "m2",
-      "text": "How are you doing? Did you get any chance to look at what I've sent you?",
-      "createdAt": "2022-10-14T10:48:00.000Z"
-    }
+
   },
-  {
-    "id": "3",
-    "user": {
-      "id": "u4",
-      "name": "Alex",
-      "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/8.png"
-    },
-    "lastMessage": {
-      "id": "m3",
-      "text": "Hi, Vadim. I hope the plans for to night are still on.",
-      "createdAt": "2022-10-13T20:48:00.000Z"
-    }
-  }
 ]

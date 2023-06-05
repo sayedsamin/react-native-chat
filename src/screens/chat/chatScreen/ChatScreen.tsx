@@ -62,10 +62,7 @@ export default function ChatScreen({ navigation, route }) {
 
         if (savedMessages) {
           const parsedMessages = JSON.parse(savedMessages);
-          console.log(
-            "🚀 ~ file: ChatScreen.tsx:59 ~ socket.on ~ parsedMessages:",
-            parsedMessages
-          );
+
           const newMessages = [message, ...parsedMessages];
 
           await AsyncStorage.setItem(

@@ -1,14 +1,50 @@
 import { VStack, Text, Image, Pressable, HStack } from "native-base";
 import moment from "moment";
 
+import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState, useCallback } from "react";
+
 export default function ChatListItem({ chat, navigation }) {
   // const { token } = useContext(AuthContext);
-  //  const { data: fetchedData } = useQuery(
-  //   ["user-data"],
-  //   async () => {
-  //     return getUserQueryHome(token);
-  //   }
-  // );
+  const [useLastMessage, setUseLastMessage] = useState(
+    AsyncStorage.getItem(`messages-${chat.user.id}`)
+  );
+
+  useFocusEffect(
+    // const getMessages = async () => {
+    //   try {
+    //     const messages = await AsyncStorage.getItem(`messages-${chat.user.id}`);
+
+    //     if (messages) {
+    //       // chat.lastMessage = JSON.parse(messages)[0];
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+
+    useCallback(() => {
+      const getMessages = async () => {
+        try {
+          const messages = await AsyncStorage.getItem(
+            `messages-${chat.user.id}`
+          );
+
+          if (messages) {
+            // chat.lastMessage = JSON.parse(messages)[0];
+            setUseLastMessage(JSON.parse(messages)[0]);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getMessages();
+    }, [])
+
+    // getMessages();
+  );
+
   return (
     <Pressable
       flexDirection="row"
@@ -44,11 +80,11 @@ export default function ChatListItem({ chat, navigation }) {
 
           <Text color={"gray.500"} ml="auto">
             {/* {chat.lastMessage?.createdAt} */}
-            {moment(chat.lastMessage?.createdAt).fromNow()}
+            {moment(useLastMessage?.createdAt).fromNow()}
           </Text>
         </HStack>
         <Text numberOfLines={2} color={"grey"}>
-          {chat.lastMessage?.text}
+          {useLastMessage?.content}
         </Text>
       </VStack>
     </Pressable>

@@ -7,7 +7,7 @@ import ChatListItem from "../chat/ChatListItem";
 import chats from "../../../assets/data/chats.json";
 
 export default function HomeScreen({ navigation }) {
-  const { token } = useContext(AuthContext);
+  const { token, userId } = useContext(AuthContext);
 
   const { data: fetchedData } = useQuery(
     ["user-data"], // query key same as in ProfileMainScreen.tsx
@@ -16,12 +16,17 @@ export default function HomeScreen({ navigation }) {
     }
   );
 
+  // Filter out the current user from chats
+  const filteredChats = useMemo(() => {
+    return chats.filter((chat) => chat.user.id !== userId);
+  }, [chats, userId]);
+
   return (
-    <VStack flex="1" pb={10}>
+    <VStack flex="1">
       <FlatList
         bg={"white"}
         flex="1"
-        data={chats}
+        data={filteredChats}
         renderItem={({ item }) => (
           <ChatListItem chat={item} navigation={navigation} />
         )}
